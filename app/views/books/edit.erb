@@ -1,0 +1,40 @@
+<h1>Edit Entry for <%=@book.title%></h1>
+
+<form action="/books/<%=@book.id%>" method="post">
+<input type="hidden" name="_method" value="patch">
+	Title of the Book: <input type="text" name="book[title]" id="book_title" value="<%=@book.title%>">
+
+	<br>
+	<br>
+
+	Format of the Book:
+	<input type="radio" name="book[format]" value="ebook">Ebook
+	<input type="radio" name="book[format]" value="pdf">PDF
+	<input type="radio" name="book[format]" value="hard_copy">hard copy
+
+	<br>
+	<br>
+	
+
+	Topic of the Book: 
+		<%Topic.all.each do |topic|%>
+			<input type="checkbox" name="book[topic_ids][]" id="<%=topic.id%>" value="<%=topic.id%>"<%='checked' if @book.topics.include?(topic)%>><%=topic.name%>
+		<%end%>
+		<br>
+	or Create a New Topic: 
+	<input type="text" name="topic[name]">
+
+	<br>
+	<br>	
+
+	Notes:
+	<input type="text" name="book[note]" id="book_note" value="<%=@book.note%>">
+
+	<br>
+	<br>
+
+	<input type="submit" value="create">
+
+</form>
+
+	

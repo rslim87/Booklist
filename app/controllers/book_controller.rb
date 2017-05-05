@@ -25,4 +25,18 @@ class BookController < ApplicationController
 		@book = Book.find(params[:id])	
 		erb :'books/show'
 	end
+
+	get '/books/:id/edit' do 
+		@book = Book.find(params[:id])
+		erb :'books/edit'
+	end
+
+	patch '/books/:id' do 
+		@book = Book.find(params[:id])
+   		@book.update(params["book"])
+    	if !params["topic"]["name"].empty?
+      		@book.topics << Topic.create(name: params["topic"]["name"])
+    	end
+    	redirect "books/#{@book.id}"
+  	end
 end

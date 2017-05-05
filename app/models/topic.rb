@@ -9,4 +9,3 @@ class Topic < ActiveRecord::Base
 		Genre.all.find {|genre| genre.slug == slug}
 	end
 end
-end
