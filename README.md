@@ -8,5 +8,7 @@ To use this app:
 
 3. Run 'rake db:migrate'
 
-4. Run 'shotgun'
+4. Run 'rake db:seed'
+
+5. Run 'shotgun'
 
