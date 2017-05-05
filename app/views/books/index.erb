@@ -1,6 +1,6 @@
 <ol>
 <%@books.each do |book|%>
-<li><%=book%></li>
+<li><a href="/books/<%=book.id%>"><%=book.title%></li>
 <br>
 <%end%>
 </ol>

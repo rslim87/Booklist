@@ -4,14 +4,24 @@
 
 Format: <%=@book.format%>
 <br>
-Notes: <%=@book.note%>
-<br>
 
 Topic(s): 
 <ul>
 <%@book.topics.each do |topic|%>
 <li><%=topic.name%></li>
 <%end%>
-<ul>
+</ul>
 
+Notes: <%=@book.note%>
+<br>
+<br>
+
+<form method="post" action="/books/<%=@book.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Book">
+</form>
+
+<br>
+
+<button><a href="/books/<%=@book.id%>/edit">Edit <%=@book.title%>'s' Info</a></button>
 
