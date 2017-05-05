@@ -1,5 +1,7 @@
-<h1>Book Titles </h1>
+<h1>Book Titles for <%=@topic.name%> </h1>
 
+<ul>
 <%@topic.books.each do |book|%>
-<%=book.title%>
+<li><a href="/books/<%=book.id%>"><%=book.title%></a></li>
 <%end%>
+</ul>
