@@ -5,7 +5,12 @@ class BookController < ApplicationController
 	end
 
 	get '/books/new' do 
-		erb :"books/new"
+		if logged_in?
+			erb :"books/new"
+		else
+			redirect to '/login'
+		end 
+
 	end
 
 	post '/books' do 
@@ -22,13 +27,21 @@ class BookController < ApplicationController
 	end
 
 	get '/books/:id' do 
-		@book = Book.find(params[:id])	
-		erb :'books/show'
+		if logged_in?
+			@book = Book.find(params[:id])	
+			erb :'books/show'
+		else 
+			redirect to '/login'
+		end	
 	end
 
 	get '/books/:id/edit' do 
-		@book = Book.find(params[:id])
-		erb :'books/edit'
+		if logged_in?
+			@book = Book.find(params[:id])
+			erb :'books/edit'
+		else
+			redirect to '/login'
+		end
 	end
 
 	patch '/books/:id' do 
@@ -41,9 +54,17 @@ class BookController < ApplicationController
   	end
 
   	delete '/books/:id/delete' do 
-  		@book = Book.find(params[:id])
-  		@book.delete
-  		redirect '/books'
+  		if logged_in?
+  			@book = Book.find(params[:id])
+  			if @book.user_id == current_user.id
+  				@book.delete
+  				redirect '/books'
+  			else
+  				redirect to '/books'
+  			end
+  		else
+  			redirect to '/login'
+  		end
   	end
 
 end
