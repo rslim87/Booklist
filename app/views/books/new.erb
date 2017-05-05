@@ -17,7 +17,7 @@
 
 	Topic of the Book: 
 		<%Topic.all.each do |topic|%>
-			<input type="checkbox" name="book[topic_ids][]" id="<%=topic.id%>" value="<%=topic.id%>"><%=topic.name%>
+			<input type="checkbox" name="book[topic_ids]" id="<%=topic.id%>" value="<%=topic.id%>"><%=topic.name%>
 		<%end%>
 		<br>
 	or Create a New Topic: 

@@ -10,8 +10,8 @@ class BookController < ApplicationController
 
 	post '/books' do 
 		@book = Book.create(params[:book])
-		if !params["topic"]["name"].empty?
-      		@book.topics << Topic.create(name: params["topic"]["name"])
+		if !params[:topic][:name].empty?
+      		@book.topics << Topic.create(name: params[:topic][:name])
   		end
   		
   		

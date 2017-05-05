@@ -1,5 +1,5 @@
 class Topic < ActiveRecord::Base
-	belongs_to :book
+	has_many :books
 
 	def slug
 		self.name.downcase.gsub(' ','-').gsub('/','-')

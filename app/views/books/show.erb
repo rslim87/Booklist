@@ -6,11 +6,11 @@ Format: <%=@book.format%>
 <br>
 
 Topic(s): 
-<ul>
+
 <%@book.topics.each do |topic|%>
-<li><%=topic.name%></li>
+<%=topic.name%>
 <%end%>
-</ul>
+<br>
 
 Notes: <%=@book.note%>
 <br>

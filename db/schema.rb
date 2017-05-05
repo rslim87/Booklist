@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20170504143642) do
     t.string "format"
     t.string "note"
     t.integer "user_id"
+    t.integer "topic_id"
   end
 
   create_table "topics", force: :cascade do |t|
