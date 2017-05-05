@@ -5,7 +5,6 @@ class CreateBooks < ActiveRecord::Migration[5.1]
   		t.string :format
   		t.string :note
   		t.integer :user_id
-  		t.integer :topic_id
   	end
   end
 end

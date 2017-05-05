@@ -1,1 +1,17 @@
-it works!
+<h1> <%=@book.title%>'s info </h1>
+<br>
+
+
+Format: <%=@book.format%>
+<br>
+Notes: <%=@book.note%>
+<br>
+
+Topic(s): 
+<ul>
+<%@book.topics.each do |topic|%>
+<li><%=topic.name%></li>
+<%end%>
+<ul>
+
+

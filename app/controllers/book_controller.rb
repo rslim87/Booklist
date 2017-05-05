@@ -9,11 +9,12 @@ class BookController < ApplicationController
 	end
 
 	post '/books' do 
+		@book = Book.create(params[:book])
 		if !params["topic"]["name"].empty?
       		@book.topics << Topic.create(name: params["topic"]["name"])
   		end
   		
-  		@book = Book.create(params[:book])
+  		
   		@book.save
 
   		redirect to "books/#{@book.id}"
@@ -21,6 +22,7 @@ class BookController < ApplicationController
 	end
 
 	get '/books/:id' do 
+		@book = Book.find(params[:id])	
 		erb :'books/show'
 	end
 end
