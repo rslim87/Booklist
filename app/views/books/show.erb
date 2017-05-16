@@ -1,29 +1,32 @@
-<h1> <%=@book.title%>'s info </h1>
+<h1> <%= @book.title %>'s info </h1>
 <br>
 
 
-Format: <%=@book.format%>
+Format: <%= @book.format %>
 <br>
 
 Topic(s): 
 
-<%@book.topics.each do |topic|%>
-<%=topic.name%>
-<%end%>
+<% @book.topics.each do |topic| %>
+	<%=topic.name%>
+<% end %>
 <br>
 
-Notes: <%=@book.note%>
+Notes: <%= @book.note %>
 <br>
 <br>
 
-<form method="post" action="/books/<%=@book.id%>/delete">
-  <input id="hidden" type="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Delete Book">
-</form>
+<% if @book.user == current_user %>
+	<form method="post" action="/books/<%= @book.id %>/delete">
+	  	<input id="hidden" type="hidden" name="_method" value="DELETE">
+	  	<input type="submit" value="Delete Book">
+	</form>
 
-<br>
+	<br>
 
-<button><a href="/books/<%=@book.id%>/edit">Edit <%=@book.title%>'s' Info</a></button>
+	<button><a href="/books/<%= @book.id %>/edit">Edit <%= @book.title %>'s' Info</a></button>
+<% end %>
+
 
 <br>
 <br>

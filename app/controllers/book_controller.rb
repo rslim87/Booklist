@@ -1,54 +1,53 @@
 class BookController < ApplicationController
+
 	get '/books' do 
 		@books = Book.all 
 		erb :"books/index"
 	end
 
 	get '/books/new' do 
-		if logged_in?
-			erb :"books/new"
-		else
-			redirect to '/login'
-		end 
+		authenticate_user
+		@book = book.new
+		erb :"books/new"
 	end
 
 	post '/books' do 
-		@book = current_user.books.create(params[:book])
-		if !params[:topic][:name].empty?
-      		@book.topics << Topic.create(name: params[:topic][:name])
-  		end
-  		redirect to "books/#{@book.id}"
+		authenticate_user
+		@book = current_user.books.build(params[:book])
+		if @book.save
+			if !params[:topic][:name].empty?
+		  		@book.topics << Topic.create(name: params[:topic][:name])
+			end
+			redirect to "books/#{@book.id}"
+		else 
+			erb :'books/new'
+		end
 	end
 
 	get '/books/:id' do 
-		if logged_in?
-			@book = Book.find_by_id(params[:id])	
-			erb :'books/show'
-		else 
-			redirect to '/login'
-		end	
+		authenticate_user
+		@book = Book.find_by_id(params[:id])	
+		erb :'books/show'
 	end
 
 	get '/books/:id/edit' do 
-		if logged_in?
-			@book = Book.find_by_id(params[:id])
-			if @book.user_id == current_user.id
-				erb :'books/edit'
-			else
-				redirect to '/'
-			end
+		authenticate_user
+		@book = Book.find_by_id(params[:id])
+		if @book.user == current_user
+			erb :'books/edit'
 		else
-			redirect to '/login'
+			redirect to '/'
 		end
 	end
 
 	patch '/books/:id' do 
+		authenticate_user
 		@book = current_user.books.find_by_id(params[:id])
 		if @book 
-   			@book.update(params[:book])
-    			if !params[:topic][:name].empty?
-      				@book.topics << Topic.create(name: params["topic"]["name"])
-    			end
+    		if !params[:topic][:name].empty?
+      			@book.topics << Topic.create(name: params["topic"]["name"])
+    		end
+    		@book.update(params[:book])
     		redirect "books/#{@book.id}"
     	else
     		redirect '/books'
@@ -56,17 +55,13 @@ class BookController < ApplicationController
   	end
 
   	delete '/books/:id/delete' do 
-  		if logged_in?
-  			@book = Book.find_by_id(params[:id])
-  			if @book.user_id == current_user.id
-  				@book.delete
-  				redirect '/books'
-  			else
-  				redirect to '/books'
-  			end
-  		else
-  			redirect to '/login'
-  		end
+  		authenticate_user
+		@book = current_user.books.find_by_id(params[:id])
+		if @book && @book.destory
+			redirect '/books'
+		else
+			redirect "books/#{@book.id}"
+		end
   	end
 
 end

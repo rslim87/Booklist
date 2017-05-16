@@ -18,14 +18,14 @@
   <body>
     <div class="nav">
       <ul>
-      	<%if logged_in?%>
-        <li class="current-user">Welcome <%=current_user.username%></a></li>
-        <li class="index-page"><a href="/users/index">Index</a></li>
-        <li class="logout"><a href="/logout">Logout</a></li>
-        <%else%>
-        <li class="signup"><a href="/signup">Sign Up</a></li>
-        <li class="login"><a href="/login">Login</a></li>
-        <%end%>
+      	<% if logged_in? %>
+        	<li class="current-user">Welcome <%= current_user.username %></a></li>
+        	<li class="index-page"><a href="/users/index">Index</a></li>
+        	<li class="logout"><a href="/logout">Logout</a></li>
+        <% else %>
+        	<li class="signup"><a href="/signup">Sign Up</a></li>
+        	<li class="login"><a href="/login">Login</a></li>
+        <% end %>
       </ul>
     </div>
 
